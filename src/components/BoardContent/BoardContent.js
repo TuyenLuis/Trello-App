@@ -10,7 +10,6 @@ import { applyDrag } from "utilities/dragDrop";
 
 function BoardContent() {
 	const [board, setBoard] = useState({});
-	// eslint-disable-next-line no-unused-vars
 	const [columns, setColumns] = useState([]);
 
 	useEffect(() => {
@@ -72,6 +71,10 @@ function BoardContent() {
 					)
 				}) }
 			</Container>
+			<div className="add-column">
+				<i className="fa fa-plus icon" />
+				<div className="actions">Add another column</div>
+			</div>
 		</div>
 	);
 

@@ -10,4 +10,9 @@ body {
   height: 100vh;
   overflow-y: hidden;
   background-color: $board-bg;
+  color: $app-main-color;
+  .icon {
+    font-size: 14px;
+    margin-right: 3px;
+  }
 }

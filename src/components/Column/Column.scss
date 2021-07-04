@@ -9,7 +9,7 @@ $column-height: calc(#{$board-content-height} - #{2 * $gap});
   margin-left: $gap;
   > * {
     background-color: $col-bg;
-    color: #333;
+    color: $app-main-color;
     padding: 0 8px;
   }
 
@@ -31,6 +31,16 @@ $column-height: calc(#{$board-content-height} - #{2 * $gap});
     font-size: 16px;
     border-bottom-left-radius: $col-radius;
     border-bottom-right-radius: $col-radius;
+    color: #888;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    .actions {
+      margin-left: $gap;
+      &:hover {
+        color: $app-main-color;
+      }
+    }
   }
 
   .list-items {
