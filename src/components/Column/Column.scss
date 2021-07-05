@@ -36,7 +36,7 @@ $column-height: calc(#{$board-content-height} - #{2 * $gap});
     align-items: center;
     cursor: pointer;
     .actions {
-      margin-left: $gap;
+      margin-left: 5px;
       &:hover {
         color: $app-main-color;
       }

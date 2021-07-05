@@ -5,6 +5,10 @@
   // margin: 0 $gap $gap;
   overflow-x: auto;
   overflow-y: hidden;
+  &:after {
+    content: "";
+    flex: 0 0 $gap;
+  }
   height: $board-content-height;
   &::-webkit-scrollbar {
     -webkit-appearance: none;
@@ -22,20 +26,49 @@
     margin: 5px 45px 5px 5px;
   }
 
-  .add-column {
-    display: flex;
-    align-items: center;
+  .column {
     width: 250px;
-    height: 32px;
-    line-height: 32px;
-    padding: 4px 0 4px 15px;
-    cursor: pointer;
-    color: white;
-    margin-left: $gap;
-    background-color: hsla(0, 0%, 100%, 0.24);
-    border-radius: $card-radius;
-    &:hover {
-      background-color: hsla(0, 0%, 100%, 0.34);
+    max-width: 250px;
+
+    .add-column {
+      display: flex;
+      align-items: center;
+      line-height: 32px;
+      padding: 4px 0 4px 15px;
+      cursor: pointer;
+      color: white;
+      margin-left: $gap;
+      background-color: hsla(0, 0%, 100%, 0.24);
+      border-radius: $card-radius;
+      &:hover {
+        background-color: hsla(0, 0%, 100%, 0.34);
+      }
+    }
+
+    .enter-column {
+      background-color: $col-bg;
+      line-height: 32px;
+      padding: 4px 10px;
+      margin-left: $gap;
+      border-radius: $card-radius;
+
+      .title {
+        margin: 5px 0;
+      }
+      .cancel {
+        margin-left: $gap;
+        cursor: pointer;
+        i {
+          font-size: 18px;
+          color: $alert-danger;
+          &:hover {
+            color: darken($alert-danger, 10);
+          }
+        }
+      }
     }
   }
+  
+
+
 }
