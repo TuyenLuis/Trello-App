@@ -14,14 +14,54 @@ $column-height: calc(#{$board-content-height} - #{2 * $gap});
   }
 
   .header {
-    padding-left: 15px;
-    height: $col-header-height;
+    padding: 5px 8px;
     line-height: $col-header-height;
     font-size: 16px;
     font-weight: 600;
     border-top-left-radius: $col-radius;
     border-top-right-radius: $col-radius;
     cursor: pointer;
+    display: flex;
+    .column-title {
+      height: $col-header-height;
+      flex: 90%;
+      .title {
+        // margin: 5px 0;
+      }
+    }
+    .column-action {
+      flex: 10%;
+      .dropdown-action {
+        padding: 0 $gap;
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        background-color: $col-bg;
+        border-color: $col-bg;
+        color: $app-main-color;
+        margin-top: -5px;
+        height: 35px;
+        &:after {
+          content: "...";
+          border: none;
+        }
+        &:hover {
+          background-color: darken($col-bg, 10);
+          border-color: darken($col-bg, 10);
+        }
+      }
+      .dropdown-menu {
+        padding: 0;
+        min-width: 200px;
+        .dropdown-item {
+          padding: 0.1rem 1rem;
+          font-size: 14px;
+          &:not(:last-child) {
+            border-bottom: 1px solid darken($col-bg, 10);
+          }
+        }
+      }
+    }
   }
 
   .footer {

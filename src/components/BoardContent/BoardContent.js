@@ -93,6 +93,26 @@ function BoardContent() {
 		toggleAddColumnForm();
 	};
 
+	const onUpdateColumn = (newColumnUpdate) => {
+		if (newColumnUpdate) {
+			let newColumn = [...columns];
+			const columnUpdateIndex = newColumn.findIndex(item => item.id === newColumnUpdate.id);
+			if (columnUpdateIndex !== -1) {
+				if (newColumnUpdate._destroy) {
+					newColumn.splice(columnUpdateIndex, 1);
+				} else {
+					newColumn.splice(columnUpdateIndex, 1, newColumnUpdate);
+				}
+				setColumns(newColumn);
+
+				let newBoard = { ...board };
+				newBoard.columns = newColumn;
+				newBoard.columnOrder = newColumn.map(item => item.id);
+				setBoard(newBoard);
+			}
+		}
+	}
+
 
 	return (
 		<div className="board-content">
@@ -112,7 +132,7 @@ function BoardContent() {
 						<Draggable
 							key={idx}
 						>
-							<Column column={col} onCardDrop={onCardDrop} />
+							<Column column={col} onCardDrop={onCardDrop} onUpdate={onUpdateColumn} />
 						</Draggable>
 					)
 				}) }
