@@ -54,6 +54,9 @@
 
       .title {
         margin: 5px 0;
+        &:focus {
+          border-color: $input-border-color;
+        }
       }
       .cancel {
         margin-left: $gap;
