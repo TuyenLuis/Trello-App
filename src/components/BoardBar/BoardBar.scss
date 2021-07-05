@@ -1,0 +1,11 @@
+@import "_settings.scss";
+
+
+.board-bar {
+    padding-left: $gap;
+    display: flex;
+    align-items: center;
+    background-color: $board-bg;
+    font-size: 1.1rem;
+    height: $board-bar-height;
+}

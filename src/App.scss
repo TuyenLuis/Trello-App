@@ -1,0 +1,18 @@
+@import "./_settings.scss";
+
+body {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.3em;
+	font-family: "Source Sans Pro", sans-serif;
+}
+.container {
+  height: 100vh;
+  overflow-y: hidden;
+  background-color: $board-bg;
+  color: $app-main-color;
+  .icon {
+    font-size: 14px;
+    margin-right: 3px;
+  }
+}
