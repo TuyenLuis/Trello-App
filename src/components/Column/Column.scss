@@ -65,8 +65,9 @@ $column-height: calc(#{$board-content-height} - #{2 * $gap});
   }
 
   .footer {
-    padding-left: 15px;
+    padding-left: $gap;
     height: $col-footer-height;
+    min-height: $gap;
     line-height: $col-footer-height;
     font-size: 16px;
     border-bottom-left-radius: $col-radius;
@@ -80,6 +81,9 @@ $column-height: calc(#{$board-content-height} - #{2 * $gap});
       &:hover {
         color: $app-main-color;
       }
+    }
+    .action-add-card {
+      padding-bottom: 5px;
     }
   }
 
@@ -114,6 +118,14 @@ $column-height: calc(#{$board-content-height} - #{2 * $gap});
       background-color: rgba(150, 150, 200, 0.1);
       border: 1px dashed #abc;
       margin: 5px;
+    }
+
+    .add-new-card {
+      .enter-new-card {
+        min-height: 54px;
+        max-height: 162px;
+        margin-bottom: 5px;
+      }
     }
   }
 }

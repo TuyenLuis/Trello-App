@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Container, Draggable } from "react-smooth-dnd";
 import { Container as ContainerBootstrap, Row, Col, Form, Button } from "react-bootstrap";
 import { isEmpty } from "lodash";
@@ -14,6 +14,9 @@ function BoardContent() {
 	const [columns, setColumns] = useState([]);
 	const [isOpenColumnForm, setIsOpenColumnForm] = useState(false);
 	const [newColumnTitle, setNewColumnTitle] = useState("");
+	const toggleAddColumnForm = () => {
+		setIsOpenColumnForm(!isOpenColumnForm);
+	};
 
 	const newColumnRef = useRef(null);
 
@@ -33,7 +36,7 @@ function BoardContent() {
 		}
 	}, [isOpenColumnForm]);
 
-	const onChangeTitle = useCallback((e) => setNewColumnTitle(e.target.value), []);
+	const onChangeTitle = (e) => setNewColumnTitle(e.target.value);
 
 	if (isEmpty(board)) {
 		return (
@@ -60,10 +63,6 @@ function BoardContent() {
 			currentColumn.cardOrder = newCard.map(item => item.id);
 			setColumns(newColumns);
 		}
-	};
-
-	const toggleAddColumnForm = () => {
-		setIsOpenColumnForm(!isOpenColumnForm);
 	};
 
 	const submitAddNew = () => {
@@ -113,7 +112,6 @@ function BoardContent() {
 		}
 	}
 
-
 	return (
 		<div className="board-content">
 			<Container
@@ -132,7 +130,11 @@ function BoardContent() {
 						<Draggable
 							key={idx}
 						>
-							<Column column={col} onCardDrop={onCardDrop} onUpdate={onUpdateColumn} />
+							<Column
+								column={col}
+								onCardDrop={onCardDrop}
+								onUpdate={onUpdateColumn}
+							/>
 						</Draggable>
 					)
 				}) }
