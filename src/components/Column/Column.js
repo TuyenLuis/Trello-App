@@ -108,7 +108,7 @@ function Column(props) {
 							className="dropdown-action"
 						/>
 						<Dropdown.Menu>
-							<Dropdown.Item>Add Card</Dropdown.Item>
+							<Dropdown.Item onClick={toggleAddCardForm}>Add Card</Dropdown.Item>
 							<Dropdown.Item onClick={toggleShowModal}>Remove Column</Dropdown.Item>
 							<Dropdown.Item>Remove All Card In This Column</Dropdown.Item>
 						</Dropdown.Menu>
