@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Container, Draggable } from "react-smooth-dnd";
-import { Dropdown, Form } from "react-bootstrap";
+import { Dropdown, Form, Button } from "react-bootstrap";
 
 import "./Column.scss";
 import Card from "components/Card/Card";
@@ -8,18 +8,34 @@ import ConfirmModal from "components/Common/ConfirmModal";
 import { mapOrder } from "utilities/sorts";
 import { MODAL_ACTIONS } from "utilities/constants";
 import { saveWhenEnter, selectAllTextContent } from "utilities/contentEditable";
+import { cloneDeep } from "lodash";
 
 function Column(props) {
 	const { column, onCardDrop, onUpdate } = props;
 	const cards = mapOrder(column.cards, column.cardOrder, "id");
 	const [isShow, setIsShow] = useState(false);
 	const [columnTile, setColumnTitle] = useState("");
+	const [isOpenCardForm, setIsOpenCardForm] = useState(false);
+	const [newCardTitle, setNewCardTitle] = useState("");
+
+	const newCardRef = useRef(null);
 
 	useEffect(() => {
 		setColumnTitle(column.title);
 	}, [column.title]);
 
-	const onChangeColumnTitle = useCallback((e) => setColumnTitle(e.target.value), []);
+	useEffect(() => {
+		if (newCardRef && newCardRef.current) {
+			newCardRef.current.focus();
+			newCardRef.current.select();
+		}
+	}, [isOpenCardForm]);
+
+	const toggleAddCardForm = () => {
+		setIsOpenCardForm(!isOpenCardForm);
+	}
+
+	const onChangeColumnTitle = (e) => setColumnTitle(e.target.value);
 	// const onCardDrop = (columnId, dropResult) => {
 	// 	if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
 	// 		console.log(dropResult);
@@ -42,6 +58,30 @@ function Column(props) {
 		newCol.title = columnTile;
 		onUpdate(newCol);
 	}
+
+	const onChangeTitle = (e) => setNewCardTitle(e.target.value);
+
+	const submitAddNew = () => {
+		if (!newCardTitle) {
+			newCardRef.current.focus();
+			return;
+		}
+
+		const newCard = {
+			id: Math.random().toString(36).substring(2, 5),
+			boardId: column.boardId,
+			columnId: column.id,
+			title: newCardTitle.trim(),
+			cover: null
+		};
+
+		let newColumn = cloneDeep(column);
+		newColumn.cards.push(newCard);
+		newColumn.cardOrder.push(newCard.id);
+		onUpdate(newColumn);
+		setNewCardTitle("");
+		toggleAddCardForm();
+	};
 
 	return (
 		<div className="columns">
@@ -101,10 +141,38 @@ function Column(props) {
 						</Draggable>
 					))}
 				</Container>
+				{
+					isOpenCardForm &&
+					<div className="add-new-card">
+						<Form.Control
+							size="sm"
+							as="textarea"
+							rows="3"
+							placeholder="Enter a title for this card..."
+							className="enter-new-card"
+							ref={newCardRef}
+							value={newCardTitle}
+							onChange={onChangeTitle}
+							onKeyDown={event => event.key === "Enter" && submitAddNew()}
+						/>
+					</div>
+				}
 			</div>
-			<footer className="footer">
-				<i className="fa fa-plus icon" />
-				<div className="actions">Add another card</div>
+			<footer className="footer" onClick={toggleAddCardForm}>
+				{
+					isOpenCardForm &&
+					<div className="action-add-card">
+						<Button variant="success" size="sm" onClick={submitAddNew}>Add card</Button>
+						<span className="cancel" onClick={toggleAddCardForm}><i className="fa fa-trash icon" /></span>
+					</div>
+				}
+				{
+					!isOpenCardForm &&
+					<div className="actions">
+						<i className="fa fa-plus icon" />
+						Add another card
+					</div>
+				}
 			</footer>
 			<ConfirmModal
 				isShow={isShow}
